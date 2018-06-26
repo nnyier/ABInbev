@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import '../static/ue/ueditor.config.js'
+import '../static/ue/ueditor.all.min.js'
+import '../static/ue/lang/zh-cn/zh-cn.js'
+import '../static/ue/ueditor.parse.min.js'
 
 Vue.config.productionTip = false
 Vue.use(iView)

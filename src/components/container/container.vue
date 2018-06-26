@@ -1,18 +1,21 @@
 <template>
   <div class="layout">
     <Layout>
-      <Sider class="isShow" ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+      <Sider v-if="show" class="isShow" ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
         <n-avatar></n-avatar>
         <n-sider></n-sider>
       </Sider>
       <Layout>
         <Header :style="{padding: 0}" class="layout-header-bar topbar-fixed">
-          <Icon @click.native="collapsedSider" :class="rotateIcon" type="navicon-round" size="24"></Icon>
+          <Icon @click.native="collapsedSider" @click="showContent" :class="rotateIcon" type="navicon-round" size="24"></Icon>
           <n-header></n-header>
         </Header>
-        <Content :style="{margin: '15px 0 0 0', background: '#fff', minHeight: '260px'}">
-          Content
+        <Content class="n-content" :style="{margin: '0', background: '#fff', minHeight: '260px'}">
+          <tabbar></tabbar>
+          <router-view></router-view>
         </Content>
+        <Footer>© 2018-2018 QQ：115375265 Tel：13057713777
+        </Footer>
       </Layout>
     </Layout>
   </div>
@@ -21,10 +24,16 @@
 import NAvatar from "../avatar/avatar";
 import NSider from "../sider/sider";
 import NHeader from "../header/header";
+import Tabbar from "../tabbar/tabbar";
+
 export default {
   data() {
     return {
-      isCollapsed: false
+      show: true,
+      isCollapsed: false,
+      tab0: true,
+      tab1: true,
+      tab2: true
     };
   },
   computed: {
@@ -33,14 +42,21 @@ export default {
     }
   },
   methods: {
-    collapsedSider() {
-      this.$refs.side1.toggleCollapse();
+    // collapsedSider() {
+    //   this.$refs.side1.toggleCollapse();
+    // },
+    showContent() {
+      this.show = !this.show;
+    },
+    handleTabRemove(name) {
+      this["tab" + name] = false;
     }
   },
   components: {
     NAvatar,
     NSider,
-    NHeader
+    NHeader,
+    Tabbar
   }
 };
 </script>
@@ -60,12 +76,7 @@ export default {
   position: relative;
 }
 .ivu-layout-sider {
-  height: 100vh;
   overflow: scroll;
-  /* width: 230px !important;
-  min-width: 230px !important;
-  max-width: 230px !important;
-  flex: 0 0 230px !important; */
 }
 
 .layout-logo-left {
@@ -112,5 +123,35 @@ export default {
   background: #1ab394;
   color: #fff;
   margin: 20px 12px 0;
+}
+.n-content {
+  position: relative;
+}
+.pull-left {
+  float: left;
+}
+.pull-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.pull-left i,
+.pull-right i {
+  margin: 0;
+  height: 30px;
+  line-height: 30px;
+  width: 37px;
+  text-align: center;
+  background: #fff;
+  color: #897f7f;
+  font-size: 16px;
+  border-right: 1px solid #eee;
+}
+.ivu-layout-footer {
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  text-align: center;
+  padding: 0;
 }
 </style>

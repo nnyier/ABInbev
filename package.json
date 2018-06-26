@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "iview": "^2.14.3",
+    "ueditor": "^1.2.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
